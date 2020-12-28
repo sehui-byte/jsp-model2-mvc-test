@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 
 public abstract class ConnProp {
 	public static final String ORCL_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-	public static final String ORCL_USER = "ksh00";
-	public static final String ORCL_PASS = "orcl00";
+	public static final String ORCL_USER = "scott";
+	public static final String ORCL_PASS = "tiger";
 	public static final String ORCL_DRIVER = "oracle.jdbc.driver.OracleDriver";
 
 
+	//싱글톤으로 바꾸기
 	public static Connection getConnection() {
 		Connection conn = null;
 		try {

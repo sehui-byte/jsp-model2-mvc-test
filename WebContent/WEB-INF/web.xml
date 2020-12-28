@@ -9,4 +9,20 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>front</servlet-name>
+  	<servlet-class>controller.MemberFrontController</servlet-class>
+
+  <init-param>
+		<param-name>charset</param-name>
+		<param-value>EUC-KR</param-value>
+	</init-param>
+  
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>front</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
 </web-app>

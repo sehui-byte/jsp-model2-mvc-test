@@ -1,11 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-
-
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
@@ -18,114 +15,21 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/joinFormStyle.css">
+<link rel="shortcut icon" href="#">
+<!-- 다음 주소 api 추가  -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"  charset="UTF-8"></script>
+<script src="./js/DaumPost.js" charset="UTF-8"></script>
+
+<!-- validator 추가  -->
+<script src="./js/jQueryValidator.js" charset="UTF-8"></script>
+
 <title>회원가입</title>
-
-<script>
-	$(function() {
-
-		$.validator
-				.setDefaults({
-					//필드가 Invalid 됐을때 어떻게 하이라이트 시킬까를 결정할 수 있다.
-					highlight : function(element) {
-						if (element.type === "radio") {
-							this.findByName(element.name).addClass(errorClass)
-									.removeClass(validClass);
-						} else {
-							//input부분의 오른쪽에 아이콘을 넣기 위해서 has-feedback클래스 선택자를 form-group부분에 추가한다
-							$(element).closest('.col-sm-9').removeClass(
-									'has-success').addClass(
-									'has-error has-feedback');
-							//이전 아이콘 지움
-							$(element).closest('.col-sm-9').find('i.fa')
-									.remove();
-							//fa-lg : font awesome아이콘 크기
-							$(element)
-									.closest('.col-sm-9')
-									.append(
-											'<i class="fa fa-exclamation-circle form-control-feedback"></i>');
-						var a = document.getElementsByTagName('i');
-						var b = a.parentElement;
-						var c = a.parentNode;
-						console.log("parent >>" + b + "," +  c);
-						}
-					},
-					unhighlight : function(element) {
-						if (element.type === "radio") {
-							this.findByName(element.name).removeClass(
-									errorClass).addClass(validClass);
-						} else {
-							$(element).closest('.col-sm-9').removeClass(
-									'has-error has-feedback').addClass(
-									'has-success has-feedback');
-							$(element).closest('.col-sm-9').find('i.fa')
-									.remove();
-							$(element)
-									.closest('.col-sm-9')
-									.append(
-											'<i class="fa fa-check form-control-feedback"></i>');
-						}
-					}
-				});
-
-		//유효성검사
-		//필수 입력값 : 이름, 아이디, 비번, 비번확인, 이메일, 핸드폰번호, 성별
-		//아이디 중복검사 jsp로 보내버리기
-		$("#joinForm").validate({
-
-			rules : {
-				//name으로 지정
-				name : {
-					required : true
-				},
-				email : {
-					required : true,
-					email : true
-				},
-				password : {
-					required : true
-				},
-				password_confirm : {
-					required : true,
-					equalTo : password
-				},
-				phoneNumber : {
-					required : true
-				},
-				gender : {
-					required : true
-				}
-			},
-			messages : {
-				name : {
-					required : "이름을 입력해주세요."
-				},
-				email : {
-					email : "이메일 형식을 확인하세요.",
-					required : "이메일을 입력하세요."
-				},
-				password_confirm : {
-					required : "비밀번호를 다시 한번 입력해주세요.",
-					equalTo : "비밀번호와 다릅니다."
-				},
-				password : {
-					required : "비밀번호를 입력해주세요."
-				},
-				phoneNumber : {
-					required : "핸드폰번호를 입력해주세요."
-				},
-				gender : {
-					required : "성별을 입력해주세요."
-				}
-			}
-		});
-	});
-</script>
 </head>
-<body>
 
+<body>
 	<div class="container">
 		<form class="form-horizontal" role="form" id="joinForm"
-			name="joinForm">
+			name="joinForm" method="post" action="memberInsert.do" enctype="multipart/form-data">
 			<h2>Registration</h2>
 			<div class="form-group">
 				<label for="name" class="col-sm-3 control-label"> Name*</label>
@@ -136,11 +40,22 @@
 			</div>
 
 			<div class="form-group">
-				<label for="name" class="col-sm-3 control-label"> E-mail*</label>
+				<label for="email" class="col-sm-3 control-label"> E-mail*</label>
 				<div class="col-sm-9">
 					<input type="text" id="email" name="email"
 						placeholder="(ex)abcd@efg.com" class="form-control">
 				</div>
+			</div>
+
+			<!-- 아이디 -->
+			<div class="form-group">
+				<label for="id" class="col-sm-3 control-label"> Id*</label>
+				<div class="col-sm-9">
+					<input type="text" id="id" name="id" placeholder="Id"
+						class="form-control">
+				</div>
+				<!-- 아이디 중복체크 -->
+				<div class="check_font" id="id_check"></div>
 			</div>
 
 			<div class="form-group">
@@ -183,90 +98,107 @@
 				<div class="row">
 					<div class="col-sm-5">
 						<input type="text" name="zipcode" id="zipcode" placeholder="우편번호"
-							class="form-control" autofocus>
+							class="form-control" >
 					</div>
-
-					<button type="submit" class="btn btn-primary">검색</button>
+					<!-- 주소찾기 버튼 -->
+					<!-- 이걸 <button>태그로 하면 submit하면서 새로고침되므로 input으로 수정함 -->
+					<input type="button" class="btn btn-primary" onclick="exedaumPost()" value="검색"/>
 
 					<label for="address" class="col-sm-3 control-label"></label>
 					<div class="col-sm-9">
 						<input type="text" name="address" id="address" placeholder="도로명주소"
-							class="form-control" autofocus>
+							class="form-control" >
+					</div>
+					<label for="zibun" class="col-sm-3 control-label">
+					</label>
+					<div class="col-sm-9">
+						<input type="text" name="zibun" id="zibun"
+							placeholder="지번주소" class="form-control" >
 					</div>
 
 					<label for="addressDetail" class="col-sm-3 control-label">
 					</label>
 					<div class="col-sm-9">
 						<input type="text" name="addressDetail" id="addressDetail"
-							placeholder="상세주소" class="form-control" autofocus>
+							placeholder="상세주소" class="form-control" >
 					</div>
+					
+					<label for="extraAddress" class="col-sm-3 control-label">
+					</label>
+					<div class="col-sm-9">
+						<input type="text" name="extraAddress" id="extraAddress"
+							placeholder="참고항목" class="form-control" >
+					</div>
+					<span id="guide" style="color:#999;display:none"></span>
 				</div>
 			</div>
 
-
+			<!-- 성별 (중복선택X) -->
 			<div class="form-group">
 				<label class="control-label col-sm-3">Gender*</label>
 				<div class="col-sm-6">
 					<div class="row">
 						<div class="col-sm-4">
+						<!-- 라디오버튼의 경우 중복선택이 안되게 하려면 name을 같게 주면 된다 -->
 							<label class="radio-inline"> <input type="radio"
-								id="female" value="F">Female
+								name="gender" id="female" value="F">Female
 							</label>
 						</div>
 						<div class="col-sm-4">
 							<label class="radio-inline"> <input type="radio"
-								id="male" value="M">Male
+								name="gender" id="male" value="M">Male
 							</label>
 						</div>
 						<div class="col-sm-4">
 							<label class="radio-inline"> <input type="radio"
-								id="unknown" value="U">Unknown
+								name="gender" id="unknown" value="U">Unknown
 							</label>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			<!-- 취미(hobby) -> 관심사로 표현  (중복선택 가능)-->
 			<div class="form-group">
 				<label class="control-label col-sm-3">Interest</label>
+				<div>중복 선택이 가능합니다.</div>
 				<div class="col-sm-6">
 					<div class="row">
 						<div class="col-sm-8">
 							<label class="radio-inline"> <input type="checkbox"
-								value="알고리즘">알고리즘
+								value="알고리즘" id="hobby" name="hobby">알고리즘
 							</label>
 						</div>
 						<div class="col-sm-8">
 							<label class="radio-inline"> <input type="checkbox"
-								value="데이터베이스">데이터베이스
+								value="데이터베이스" id="hobby" name="hobby">데이터베이스
 							</label>
 						</div>
 						<div class="col-sm-8">
 							<label class="radio-inline"> <input type="checkbox"
-								value="웹프로그래밍">웹프로그래밍
+								value="웹프로그래밍" id="hobby" name="hobby">웹프로그래밍
 							</label>
 						</div>
 						<div class="col-sm-8">
 							<label class="radio-inline"> <input type="checkbox"
-								value="빅데이터">빅데이터
+								value="빅데이터" id="hobby" name="hobby">빅데이터
 							</label>
 						</div>
 						<div class="col-sm-8">
 							<label class="radio-inline"> <input type="checkbox"
-								value="기획">기획
+								value="기획" id="hobby" name="hobby">기획
 							</label>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			<!--  소개글 입력 -->
 			<div class="form-group">
 				<label class="control-label col-sm-3">소개글</label>
 				<div class="col-sm-9">
-					<textarea class="form-control" autofocus cols="60" rows="10"></textarea>
+					<textarea class="form-control" autofocus cols="60" rows="10" id="info" name="info"></textarea>
 				</div>
 			</div>
-
+			<!-- 프로필 사진 업로드 -->
 			<div class="form-group">
 				<label class="control-label col-sm-3">Profile Photo</label> <input
 					type="file" name="photo" id="photo" autofocus>
