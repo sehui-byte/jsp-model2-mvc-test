@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import member.db.MemberVO;
 
 public interface MemberService {
-	public ArrayList<MemberVO> MemSelectAll();
-	public ArrayList<MemberVO> MemSelect(MemberVO mvo);
-	public boolean MemInsert(MemberVO mvo);
-	public boolean MemUpdate(MemberVO mvo);
-	public boolean MemDelete(MemberVO mvo);
+	public ArrayList<MemberVO> memSelectAll();
+	public ArrayList<MemberVO> memSelect(MemberVO mvo);
+	public boolean memInsert(MemberVO mvo);
+	public boolean memUpdate(MemberVO mvo);
+	public boolean memDelete(MemberVO mvo);
 	
-	//아이디 중복체크
-	public boolean IdCheck(MemberVO mvo);
+	public boolean idCheck(MemberVO mvo);//아이디 중복체크
+	public boolean loginCheck(MemberVO mvo);//로그인 체크
 }

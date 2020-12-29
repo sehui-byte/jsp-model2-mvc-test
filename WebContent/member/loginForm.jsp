@@ -4,48 +4,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta charset="EUC-KR">
+<!-- navbar 추가 -->
+<%@ include file="../common/navbar.jsp"%>
 <link rel="stylesheet" href="css/loginFormStyle.css">
-
-<!------ Include the above in your HEAD tag ---------->
 </head>
-<body id="LoginForm">
-	<div class="container">
-		<h1 class="form-heading">login Form</h1>
-		<div class="login-form">
-			<div class="main-div">
-				<div class="panel">
-					<h2>Login</h2>
-					<p>Please enter your id and password</p>
-				</div>
-				<form id="Login">
-					<div class="form-group">
-						<input type="text" class="form-control" id="inputId"
-							placeholder="Id">
-					</div>
-
-					<div class="form-group">
-
-						<input type="password" class="form-control" id="inputPassword"
-							placeholder="Password">
-
-					</div>
-					<div class="forgot">
-						Forgot <a href="findId.jsp">id</a> / <a href="findPw.jsp">password?</a>
-					</div>
-					<button type="submit" class="btn btn-primary">Login</button>
-
-				</form>
+<body>
+	<div class="loginBox">
+		<h1>로그인</h1>
+		<form action="login.do" method="post">
+			<label for="id" class="labelId">아이디</label> 
+			<input type="text" id="id" name="id">
+			<label for="pw" class="labelPw">패스워드</label>
+			<input type="password" id="pw" name="pw">
+			
+			<div class="chk">
+				<input type="checkbox" id="idChk" name="idChk" value="idChkYes"> 
+				<label for="idChk">아이디 저장</label> 
+				<input type="checkbox" id="pwChk" name="pwChk" value="pwChkYes"> 
+				<label for="pwChk">비밀번호 저장</label>
 			</div>
-			<p class="botto-text">Designed by Sunil Rajput</p>
-		</div>
-	</div>
+			<div class="serch">
+				<span class="text">아이디 또는 비밀번호를 잊으셨나요?</span> <a href="#">ID/PW찾기</a>
+			</div>
+			<div class="btnWrap">
+				<input type="button" value="회원가입" id="joinBtn" onclick="location.href='./joinForm.jsp'">
+				<input type="submit" id="loginBtn" value="로그인" onclick="">
+			</div>
+		</form>
 	</div>
 </body>
 </html>

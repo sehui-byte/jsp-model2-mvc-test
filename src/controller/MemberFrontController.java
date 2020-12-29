@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 //서블릿 매핑 : 해당 서블릿이 어떤 url을 처리할지에 대한 매핑정보 등록하는 것.
 //"/.do" url이 오면 이 컨트롤러가 전부 처리
 //이렇게 특정 확장자(.do) url요청을 해당 컨트롤러 서블릿이 처리하도록 하기위해선 web.xml에 <servlet-mapping>정보를 추가해줘야한다
+//@WebServlet("*.do")
 public class MemberFrontController extends HttpServlet {
 	
 	//초기화작업 : 한글처리
@@ -39,12 +40,16 @@ public class MemberFrontController extends HttpServlet {
 		list = new HashMap<String, Controller>();
 		list.put("/member/memberInsert.do", new MemberInsertController());
 		list.put("/member/memberIdCheck.do", new MemberIdCheckController());
-		list.put("/memberUpdate.do", new MemberUpdateController());
+		list.put("/member/memberUpdate.do", new MemberUpdateController());
+		list.put("/member/login.do", new MemberLoginController());
+		list.put("/member/logout.do", new MemberLogoutController());
 	}
 	
 	//클라이언트가 요청할 때마다 해당 path의 controller로 이동시켜준다
 	public void service(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding(charset);
+		response.setContentType("text/html; charset=euc-kr");
+		 
 		String url = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String path = url.substring(contextPath.length());

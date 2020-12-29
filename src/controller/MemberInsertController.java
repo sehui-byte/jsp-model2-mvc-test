@@ -88,17 +88,17 @@ public class MemberInsertController implements Controller {
 
 		//4. Service 객체의 데이터 바인딩
 		MemberService service = MemberServiceImpl.getInstance();
-		boolean result = service.MemInsert(mvo);
+		boolean result = service.memInsert(mvo);
 		System.out.println("service.MemInsert(mvo) >> " + result);
 
-		if(result) {
+		if(result) {//회원가입 성공시
 			//5. View 페이지로 이동
 			request.setAttribute("id",id);
 			RequestDispatcher rd= request.getRequestDispatcher("/common/home.jsp");
 			rd.forward(request, response);
 			
 		}
-		else {
+		else {//db에 insert 실패시 원래 회원가입폼 페이지로 
 			PrintWriter out = response.getWriter();
 			out.println("<script>");					
 			out.println("location.href='/modeltwo/member/joinForm.jsp'");

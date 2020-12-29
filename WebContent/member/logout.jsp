@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-아이디중복
+
 </body>
 </html>

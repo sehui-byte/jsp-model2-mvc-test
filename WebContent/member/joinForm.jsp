@@ -3,23 +3,19 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/joinFormStyle.css">
+<!-- 파비콘 에러 방지 -->
 <link rel="shortcut icon" href="#">
 <!-- 다음 주소 api 추가  -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"  charset="UTF-8"></script>
 <script src="./js/DaumPost.js" charset="UTF-8"></script>
-
 <!-- validator 추가  -->
 <script src="./js/jQueryValidator.js" charset="UTF-8"></script>
 
@@ -27,6 +23,7 @@
 </head>
 
 <body>
+<jsp:include page="/common/navbar.jsp" flush="true" />
 	<div class="container">
 		<form class="form-horizontal" role="form" id="joinForm"
 			name="joinForm" method="post" action="memberInsert.do" enctype="multipart/form-data">
@@ -54,8 +51,9 @@
 					<input type="text" id="id" name="id" placeholder="Id"
 						class="form-control">
 				</div>
-				<!-- 아이디 중복체크 -->
+				<!-- 아이디 중복체크 문구 
 				<div class="check_font" id="id_check"></div>
+				-->
 			</div>
 
 			<div class="form-group">

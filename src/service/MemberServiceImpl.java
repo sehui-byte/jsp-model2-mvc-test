@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public ArrayList<MemberVO> MemSelectAll() {
+	public ArrayList<MemberVO> memSelectAll() {
 		// TODO Auto-generated method stub
 		MemberDAO mdao = new MemberDAOImpl();		
 		ArrayList aList = mdao.memSelectAll();
@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public ArrayList<MemberVO> MemSelect(MemberVO mvo) {
+	public ArrayList<MemberVO> memSelect(MemberVO mvo) {
 		// TODO Auto-generated method stub
 		MemberDAO mdao = new MemberDAOImpl();		
 		ArrayList aList = mdao.memSelect(mvo);
@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean MemInsert(MemberVO mvo) {
+	public boolean memInsert(MemberVO mvo) {
 		// TODO Auto-generated method stub
 		MemberDAO mdao = new MemberDAOImpl();		
 		boolean bool = mdao.memInsert(mvo);
@@ -43,22 +43,29 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public boolean MemUpdate(MemberVO mvo) {
+	public boolean memUpdate(MemberVO mvo) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean MemDelete(MemberVO mvo) {
+	public boolean memDelete(MemberVO mvo) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean IdCheck(MemberVO mvo) {
+	public boolean idCheck(MemberVO mvo) {
 		MemberDAO mdao = new MemberDAOImpl();	
-		mdao.idCheck(mvo);
 		boolean bool = mdao.idCheck(mvo);
+		
+		return bool;
+	}
+	
+	@Override
+	public boolean loginCheck(MemberVO mvo) {
+		MemberDAO mdao = new MemberDAOImpl();
+		boolean bool = mdao.loginCheck(mvo);
 		
 		return bool;
 	}
