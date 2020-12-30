@@ -61,10 +61,6 @@ public class MemberLoginController implements Controller {
 				response.addCookie(idCookie);
 			}
 			
-			out.println("<script>alert('로그인되었습니다.');");
-			out.println("</script>");
-			out.close();
-
 			rd = request.getRequestDispatcher("/common/home.jsp");
 			rd.forward(request, response);
 		}

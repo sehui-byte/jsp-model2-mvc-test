@@ -14,7 +14,6 @@
 	font-size: 28px;
 	color: ##ff9900;
 	border-botton: 1px solid ##ff9900;
-	padding-left: 40px;
 	box-sizing: border-box;
 }
 
@@ -27,33 +26,8 @@
 	margin-left: 10px;
 }
 
-.lableId{
-	width: 60px;
-	font-size: 14px;
-	color: #666;
-	margin-right: 50px;
-}
 
-.labelPw{
-	width: 60px;
-	font-size: 14px;
-	color: #666;
-	margin-right: 8px;
-}
 
-.chk{
-	width: 100%;
-	text-align: right;
-	padding-right: 13px;
-	box-sizing: border-box;
-}
-
-.chk label{
-	font-size: 12px;
-	color: #999;
-	position: relative;
-	top: -3px;
-}
 
 .btnWrap{
 	width: 100%;

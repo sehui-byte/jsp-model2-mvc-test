@@ -35,7 +35,7 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-     <!-- jstl사용 -->
+     <!-- jstl사용 : 로그인, 로그아웃 버튼-->
       	<c:if test="${sessionScope.id == null}">
       		<input class="btn btn-primary" onClick="location.href = '../member/loginForm.jsp'" type="button" value="로그인" id="loginBtn">
    		 </c:if>

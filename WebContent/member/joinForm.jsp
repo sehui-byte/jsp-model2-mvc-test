@@ -23,7 +23,6 @@
 </head>
 
 <body>
-<jsp:include page="/common/navbar.jsp" flush="true" />
 	<div class="container">
 		<form class="form-horizontal" role="form" id="joinForm"
 			name="joinForm" method="post" action="memberInsert.do" enctype="multipart/form-data">
