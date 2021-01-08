@@ -1,4 +1,4 @@
-# model2-mvc-test
+# JSP-model2-mvc-test
 JSP 모델2 MVC패턴을 이용한 미니프로젝트
 
 - 회원가입 구현
